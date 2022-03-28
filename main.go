@@ -15,8 +15,15 @@ import (
 	swag "github.com/swaggo/gin-swagger"
 )
 
+var BINARY_VERSION string
+
 func main() {
 	uclop := uc.NewUclop()
+	v_exists := os.Args[1] == "-v"
+	if v_exists && len(os.Args) == 2 {
+		fmt.Printf("BINARY_VERSION : %s ", BINARY_VERSION)
+		return
+	}
 	uclop.AddCmd("run", "Run ControlFloor", runMain, nil)
 	uclop.AddCmd("devs", "List registered devices", runListDevs, nil)
 	uclop.AddCmd("prov", "List providers", runListProv, nil)
